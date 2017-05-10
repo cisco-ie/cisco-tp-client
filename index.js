@@ -1,10 +1,11 @@
-'use strict';
-module.exports = (input, opts) => {
-	if (typeof input !== 'string') {
-		throw new TypeError(`Expected a string, got ${typeof input}`);
+class TPClient {
+	constructor(credentials) {
+		this._credentials = credentials || {};
 	}
 
-	opts = opts || {};
+	get credentials() {
+		return this._credentials;
+	}
+}
 
-	return input + ' & ' + (opts.postfix || 'rainbows');
-};
+module.exports = TPClient;

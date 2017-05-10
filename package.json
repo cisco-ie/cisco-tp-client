@@ -21,7 +21,10 @@
   "keywords": [
     ""
   ],
-  "dependencies": {},
+  "dependencies": {
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
+  },
   "devDependencies": {
     "ava": "^0.17.0",
     "coveralls": "^2.11.12",
