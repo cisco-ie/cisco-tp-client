@@ -20,7 +20,15 @@ test('Set address', t => {
 });
 
 test('Build params', t => {
-	const actualOptions = client.buildOptions('IP', 'endpoint', {test: 'Steven'});
+	const actualOptions = client.buildOptions('endpoint', {
+		method: 'POST',
+		qs: {
+			test: 'Steven'
+		},
+		headers: {
+			'Content-Type': 'application/xml'
+		}
+	});
 	const expectedOptions = {
 		auth: {
 			username: 'username',
@@ -29,68 +37,80 @@ test('Build params', t => {
 		qs: {
 			test: 'Steven'
 		},
-		method: 'IP',
+		method: 'POST',
 		uri: 'http://192.168.0.1/endpoint',
 		headers: {
-			'Content-Type': 'text/xml'
+			'Content-Type': 'application/xml'
 		}
 	};
 
 	t.deepEqual(actualOptions, expectedOptions);
 });
 
-test('Get /command', t => {
+test('Get /command', async t => {
+	t.plan(1);
+
 	BASE_NOCK
 		.get('/command.xml')
 		.reply(200, `<command></command>`);
 
-	client
-		.getCommands()
-		.then(resp => t.is(resp, '<command></command>'));
+	const xmlResponse = await client.getCommands();
+
+	t.is(xmlResponse, '<command></command>');
 });
 
-test('Get /configuration', t => {
+test('Get /configuration', async t => {
+	t.plan(1);
+
 	BASE_NOCK
 		.get('/configuration.xml')
 		.reply(200, `<configuration></configuration>`);
 
-	client
-		.getConfiguration()
-		.then(resp => t.is(resp, '<configuration></configuration>'));
+	const xmlResponse = await client.getConfiguration();
+
+	t.is(xmlResponse, '<configuration></configuration>');
 });
 
-test('Get /valuespace', t => {
+test('Get /valuespace', async t => {
+	t.plan(1);
+
 	BASE_NOCK
 		.get('/valuespace.xml')
 		.reply(200, `<Valuespace></Valuespace>`);
 
-	client
-		.getValuespace()
-		.then(resp => t.is(resp, '<Valuespace></Valuespace>'));
+	const xmlResponse = await client.getValuespace();
+
+	t.is(xmlResponse, '<Valuespace></Valuespace>');
 });
 
-test('Get /status', t => {
+test('Get /status', async t => {
+	t.plan(1);
+
 	BASE_NOCK
 		.get('/status.xml')
 		.reply(200, `<Status></Status>`);
 
-	client
-		.getStatus()
-		.then(resp => t.is(resp, '<Status></Status>'));
+	const xmlResponse = await client.getStatus();
+
+	t.is(xmlResponse, '<Status></Status>');
 });
 
-test('Post /putxml', t => {
+test('Post /putxml', async t => {
+	t.plan(1);
+
 	const response = '<?xml version="1.0"?><Configuration><Success/></Configuration>';
 	BASE_NOCK
 		.post('/putxml')
 		.reply(200, response);
 
-	client
-		.putXml()
-		.then(xmlResponse => t.is(xmlResponse, response));
+	const xmlResponse = await client.putXml();
+
+	t.is(xmlResponse, response);
 });
 
-test('Get /getxml', t => {
+test('Get /getxml', async t => {
+	t.plan(1);
+
 	const response = '<Status><Audio></Audio></Status>';
 	BASE_NOCK
 		.get('/getxml')
@@ -99,7 +119,7 @@ test('Get /getxml', t => {
 		})
 		.reply(200, response);
 
-	client
-		.getXml('/Status/Audio')
-		.then(xmlResponse => t.is(xmlResponse, response));
+	const xmlResponse = await client.getXml('/Status/Audio');
+
+	t.is(xmlResponse, response);
 });

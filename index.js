@@ -15,40 +15,39 @@ class TPClient {
 		return this._ip;
 	}
 
-	buildOptions(method, endpoint, qs = {}) {
-		const options = {
+	buildOptions(endpoint, override) {
+		const defaultOptions = {
 			auth: {
 				username: this._credentials.username,
 				password: this._credentials.password
 			},
-			method,
+			method: 'GET',
 			uri: `${this._baseUrl}/${endpoint}`,
 			headers: {
 				'Content-Type': 'text/xml'
-			},
-			qs
+			}
 		};
 
-		return options;
+		return Object.assign({}, defaultOptions, override);
 	}
 
 	getConfiguration() {
-		const options = this.buildOptions('GET', 'configuration.xml');
+		const options = this.buildOptions('configuration.xml');
 		return this.sendRequest('GET', options);
 	}
 
 	getCommands() {
-		const options = this.buildOptions('GET', 'command.xml');
+		const options = this.buildOptions('command.xml');
 		return this.sendRequest('GET', options);
 	}
 
 	getStatus() {
-		const options = this.buildOptions('GET', 'status.xml');
+		const options = this.buildOptions('status.xml');
 		return this.sendRequest('GET', options);
 	}
 
 	getValuespace() {
-		const options = this.buildOptions('GET', 'valuespace.xml');
+		const options = this.buildOptions('valuespace.xml');
 		return this.sendRequest('GET', options);
 	}
 
@@ -56,12 +55,16 @@ class TPClient {
 		const qs = {
 			location: locationPath
 		};
-		const options = this.buildOptions('GET', 'getxml', qs);
+		const options = this.buildOptions('getxml', {
+			qs
+		});
 		return this.sendRequest('GET', options);
 	}
 
 	putXml() {
-		const options = this.buildOptions('POST', 'putxml');
+		const options = this.buildOptions('putxml', {
+			method: 'POST'
+		});
 		return this.sendRequest('POST', options);
 	}
 
