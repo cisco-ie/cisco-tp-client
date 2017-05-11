@@ -103,7 +103,7 @@ test('Post /putxml', async t => {
 		.post('/putxml')
 		.reply(200, response);
 
-	const xmlResponse = await client.putXml();
+	const xmlResponse = await client.putXml('testing');
 
 	t.is(xmlResponse, response);
 });
