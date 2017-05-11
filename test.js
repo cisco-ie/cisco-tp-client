@@ -20,11 +20,14 @@ test('Set address', t => {
 });
 
 test('Build params', t => {
-	const actualOptions = client.buildOptions('IP', 'endpoint');
+	const actualOptions = client.buildOptions('IP', 'endpoint', {test: 'Steven'});
 	const expectedOptions = {
 		auth: {
 			username: 'username',
 			password: 'password'
+		},
+		qs: {
+			test: 'Steven'
 		},
 		method: 'IP',
 		uri: 'http://192.168.0.1/endpoint',
@@ -84,5 +87,19 @@ test('Post /putxml', t => {
 
 	client
 		.putXml()
+		.then(xmlResponse => t.is(xmlResponse, response));
+});
+
+test('Get /getxml', t => {
+	const response = '<Status><Audio></Audio></Status>';
+	BASE_NOCK
+		.get('/getxml')
+		.query({
+			location: '/Status/Audio'
+		})
+		.reply(200, response);
+
+	client
+		.getXml('/Status/Audio')
 		.then(xmlResponse => t.is(xmlResponse, response));
 });

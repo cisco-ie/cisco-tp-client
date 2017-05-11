@@ -15,7 +15,7 @@ class TPClient {
 		return this._ip;
 	}
 
-	buildOptions(method, endpoint) {
+	buildOptions(method, endpoint, qs = {}) {
 		const options = {
 			auth: {
 				username: this._credentials.username,
@@ -25,7 +25,8 @@ class TPClient {
 			uri: `${this._baseUrl}/${endpoint}`,
 			headers: {
 				'Content-Type': 'text/xml'
-			}
+			},
+			qs
 		};
 
 		return options;
@@ -48,6 +49,14 @@ class TPClient {
 
 	getValuespace() {
 		const options = this.buildOptions('GET', 'valuespace.xml');
+		return this.sendRequest('GET', options);
+	}
+
+	getXml(locationPath) {
+		const qs = {
+			location: locationPath
+		};
+		const options = this.buildOptions('GET', 'getxml', qs);
 		return this.sendRequest('GET', options);
 	}
 
