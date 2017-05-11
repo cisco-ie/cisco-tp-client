@@ -24,7 +24,7 @@ class TPClient {
 			method,
 			uri: `${this._baseUrl}/${endpoint}`,
 			headers: {
-				'Content-Type': 'application/xml'
+				'Content-Type': 'text/xml'
 			}
 		};
 
