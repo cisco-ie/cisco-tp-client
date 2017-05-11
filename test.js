@@ -65,3 +65,13 @@ test('Get valuespace', t => {
 		.getValuespace()
 		.then(resp => t.is(resp, '<Valuespace></Valuespace>'));
 });
+
+test('Get status', t => {
+	BASE_NOCK
+		.get('/status.xml')
+		.reply(200, `<Status></Status>`);
+
+	client
+		.getStatus()
+		.then(resp => t.is(resp, '<Status></Status>'));
+});

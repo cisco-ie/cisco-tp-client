@@ -41,6 +41,11 @@ class TPClient {
 		return this.sendRequest('GET', options);
 	}
 
+	getStatus() {
+		const options = this.buildOptions('GET', 'status.xml');
+		return this.sendRequest('GET', options);
+	}
+
 	getValuespace() {
 		const options = this.buildOptions('GET', 'valuespace.xml');
 		return this.sendRequest('GET', options);
