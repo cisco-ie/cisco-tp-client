@@ -33,12 +33,26 @@ class TPClient {
 
 	getConfiguration() {
 		const options = this.buildOptions('GET', 'configuration.xml');
-		return rp.get(options);
+		return this.sendRequest('GET', options);
 	}
 
 	getCommands() {
 		const options = this.buildOptions('GET', 'command.xml');
-		return rp.get(options);
+		return this.sendRequest('GET', options);
+	}
+
+	getValuespace() {
+		const options = this.buildOptions('GET', 'valuespace.xml');
+		return this.sendRequest('GET', options);
+	}
+
+	sendRequest(requestType, options) {
+		const requests = {
+			GET: rp.get,
+			POST: rp.post
+		};
+
+		return requests[requestType](options);
 	}
 }
 

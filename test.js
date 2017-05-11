@@ -55,3 +55,13 @@ test('Get configuration', t => {
 		.getConfiguration()
 		.then(resp => t.is(resp, '<configuration></configuration>'));
 });
+
+test('Get valuespace', t => {
+	BASE_NOCK
+		.get('/valuespace.xml')
+		.reply(200, `<Valuespace></Valuespace>`);
+
+	client
+		.getValuespace()
+		.then(resp => t.is(resp, '<Valuespace></Valuespace>'));
+});
