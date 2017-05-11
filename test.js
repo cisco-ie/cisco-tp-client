@@ -29,14 +29,14 @@ test('Build params', t => {
 		method: 'IP',
 		uri: 'http://192.168.0.1/endpoint',
 		headers: {
-			'Content-Type': 'application/xml'
+			'Content-Type': 'text/xml'
 		}
 	};
 
 	t.deepEqual(actualOptions, expectedOptions);
 });
 
-test('Get command', t => {
+test('Get /command', t => {
 	BASE_NOCK
 		.get('/command.xml')
 		.reply(200, `<command></command>`);
@@ -46,7 +46,7 @@ test('Get command', t => {
 		.then(resp => t.is(resp, '<command></command>'));
 });
 
-test('Get configuration', t => {
+test('Get /configuration', t => {
 	BASE_NOCK
 		.get('/configuration.xml')
 		.reply(200, `<configuration></configuration>`);
@@ -56,7 +56,7 @@ test('Get configuration', t => {
 		.then(resp => t.is(resp, '<configuration></configuration>'));
 });
 
-test('Get valuespace', t => {
+test('Get /valuespace', t => {
 	BASE_NOCK
 		.get('/valuespace.xml')
 		.reply(200, `<Valuespace></Valuespace>`);
@@ -66,7 +66,7 @@ test('Get valuespace', t => {
 		.then(resp => t.is(resp, '<Valuespace></Valuespace>'));
 });
 
-test('Get status', t => {
+test('Get /status', t => {
 	BASE_NOCK
 		.get('/status.xml')
 		.reply(200, `<Status></Status>`);
@@ -74,4 +74,15 @@ test('Get status', t => {
 	client
 		.getStatus()
 		.then(resp => t.is(resp, '<Status></Status>'));
+});
+
+test('Post /putxml', t => {
+	const response = '<?xml version="1.0"?><Configuration><Success/></Configuration>';
+	BASE_NOCK
+		.post('/putxml')
+		.reply(200, response);
+
+	client
+		.putXml()
+		.then(xmlResponse => t.is(xmlResponse, response));
 });

@@ -51,6 +51,11 @@ class TPClient {
 		return this.sendRequest('GET', options);
 	}
 
+	putXml() {
+		const options = this.buildOptions('POST', 'putxml');
+		return this.sendRequest('POST', options);
+	}
+
 	sendRequest(requestType, options) {
 		const requests = {
 			GET: rp.get,
