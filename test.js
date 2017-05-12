@@ -123,3 +123,34 @@ test('Get /getxml', async t => {
 
 	t.is(xmlResponse, response);
 });
+
+
+test('Set httpFeedback', async t => {
+    t.plan(1);
+
+    const feedbackXML = `<Command>
+<HttpFeedback>
+<Register command=”True”>
+<FeedbackSlot>1</FeedbackSlot>
+<ServerUrl>http://serverurl.com/test</ServerUrl>
+<Expression item=”1”>/Event/CallDisconnect</Expression>
+Expression>
+</Register>
+</HttpFeedback>
+</Command>
+`;
+
+    BASE_NOCK
+        .post('/putxml', feedbackXML)
+        .reply(200, '<Success></Success>');
+
+    const feedbackResp = await client.setHttpFeedback({
+        feedbackSlot: 1,
+        serverUrl: 'http://serverurl.com/test',
+        expressions: [
+            '/Event/CallDisconnect'
+        ]
+    });
+
+    t.is(feedbackResp, '<Success></Success>');
+});
