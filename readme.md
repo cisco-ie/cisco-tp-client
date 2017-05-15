@@ -151,12 +151,12 @@ client
 | serverUrl    | `string` | The url where the Codec will post the feedback to.                | `http://yourwebhook.com/feedback`    |
 | expressions  | `array`  | A set of feedback expressions, which monitor a particular XPath.  | `['/Status/Call', '/Status/Reboot']` |
 
-> **⚠️ Note - feedbackSlot **
+> **⚠️ Note - feedbackSlot**
 > 
 > Avoid using Feedback Slot 3, when a Cisco TelePresence Management Suite (TMS) is used within the infrastructure.
 
 
-> **🚫 Constraint - expressions **
+> **🚫 Constraint - expressions**
 > 
 > Codecs are only limited to 15 expressions per a slot.
 
