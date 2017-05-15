@@ -36,11 +36,10 @@ sx20
 Required<br>
 Type: `object`
 
-##### credentials.username || credentials.user
-The username for the TP unit
-
-##### credentials.password || credentials.pass
-The password for the TP unit
+| Properties       | Type     | Description                  |
+|------------------|----------|------------------------------|
+| username OR user | `string` | The username for the TP unit |
+| password OR pass | `string`  | The password for the TP unit |
 
 #### ip
 
@@ -54,11 +53,9 @@ The IP address of the TP unit
 ### credentials
 
 Type: `Object`<br>
+Props: `user` and `pass`
 
-#### credentials.user
-#### credentials.pass
-
-The credentials passed in and is used for the request
+The credentials passed in and is used for the request. 
 
 ### ip
 
@@ -146,27 +143,23 @@ client
    .then(success => console.log);
 ```
 
-##### settings.feedbackSlot
-Required<br>
-Type: `int`<br>
-The designated feedback slot to be used. 
+##### settings
 
-> **⚠️ Note**
+| Properties   | Type     | Description                                                       | Example                              |
+|--------------|----------|-------------------------------------------------------------------|--------------------------------------|
+| feedbackSlot | `int` [1..4] | The designated feedback slot to be used.                          | `1`                                  |
+| serverUrl    | `string` | The url where the Codec will post the feedback to.                | `http://yourwebhook.com/feedback`    |
+| expressions  | `array`  | A set of feedback expressions, which monitor a particular XPath.  | `['/Status/Call', '/Status/Reboot']` |
+
+> **⚠️ Note - feedbackSlot **
 > 
 > Avoid using Feedback Slot 3, when a Cisco TelePresence Management Suite (TMS) is used within the infrastructure.
 
-##### settings.serverUrl
-Required<br>
-Type: `string`<br>
-The url where the Codec will post the feedback to.
 
-##### settings.expressions
-Required<br>
-Type: `Array`<br>
-Constraints: Cannot be greater than 15
-A set of feedback expressions, which monitor a particular XPath.
+> **🚫 Constraint - expressions **
+> 
+> Codecs are only limited to 15 expressions per a slot.
 
-IE: `/Status/Call`, `/Status/Reboot`, etc
 
 ## License
 
