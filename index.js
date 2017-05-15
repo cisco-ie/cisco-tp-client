@@ -1,8 +1,13 @@
 const rp = require('request-promise-native');
 
 class TPClient {
-	constructor(credentials, ip) {
-		this._credentials = credentials;
+	constructor({username, user, password, pass}, ip) {
+		// Allow both options, but set the default keys
+		// to match with Request.credentials (user, pass)
+		this._credentials = {
+			user: user || username,
+			pass: pass || password
+		};
 		this._ip = ip;
 		this._baseUrl = `http://${ip}`;
 	}
@@ -15,11 +20,15 @@ class TPClient {
 		return this._ip;
 	}
 
+	get options() {
+		return this._options;
+	}
+
 	buildOptions(endpoint, override) {
 		const defaultOptions = {
 			auth: {
-				username: this._credentials.username,
-				password: this._credentials.password
+				user: this._credentials.user,
+				pass: this._credentials.pass
 			},
 			method: 'GET',
 			uri: `${this._baseUrl}/${endpoint}`,
@@ -32,38 +41,38 @@ class TPClient {
 	}
 
 	getConfiguration() {
-		const options = this.buildOptions('configuration.xml');
+		this._options = this.buildOptions('configuration.xml');
 
-		return this.sendRequest('GET', options);
+		return this.sendRequest('GET');
 	}
 
 	getCommands() {
-		const options = this.buildOptions('command.xml');
+		this._options = this.buildOptions('command.xml');
 
-		return this.sendRequest('GET', options);
+		return this.sendRequest('GET');
 	}
 
 	getStatus() {
-		const options = this.buildOptions('status.xml');
+		this._options = this.buildOptions('status.xml');
 
-		return this.sendRequest('GET', options);
+		return this.sendRequest('GET');
 	}
 
 	getValuespace() {
-		const options = this.buildOptions('valuespace.xml');
+		this._options = this.buildOptions('valuespace.xml');
 
-		return this.sendRequest('GET', options);
+		return this.sendRequest('GET');
 	}
 
 	getXml(locationPath) {
 		const qs = {
 			location: locationPath
 		};
-		const options = this.buildOptions('getxml', {
+		this._options = this.buildOptions('getxml', {
 			qs
 		});
 
-		return this.sendRequest('GET', options);
+		return this.sendRequest('GET');
 	}
 
 	putXml(payload) {
@@ -71,12 +80,12 @@ class TPClient {
 			throw new Error('Payload parameter not defined');
 		}
 
-		const options = this.buildOptions('putxml', {
+		this._options = this.buildOptions('putxml', {
 			method: 'POST',
 			body: payload
 		});
 
-		return this.sendRequest('POST', options);
+		return this.sendRequest('POST');
 	}
 
 	putXmlWithForm(payload) {
@@ -84,7 +93,7 @@ class TPClient {
 			throw new Error('Payload parameter not defined');
 		}
 
-		const options = this.buildOptions('formputxml', {
+		this._options = this.buildOptions('formputxml', {
 			method: 'POST',
 			qs: {
 				xmldoc: payload
@@ -94,7 +103,7 @@ class TPClient {
 			}
 		});
 
-		return this.sendRequest('POST', options);
+		return this.sendRequest('POST');
 	}
 
 	setHttpFeedback({serverUrl, expressions = [], feedbackSlot}) {
@@ -126,13 +135,13 @@ ${expressionXML}
 		return this.putXml(feedbackXml);
 	}
 
-	sendRequest(requestType, options) {
+	sendRequest(requestType) {
 		const requests = {
 			GET: rp.get,
 			POST: rp.post
 		};
 
-		return requests[requestType](options);
+		return requests[requestType](this._options);
 	}
 }
 

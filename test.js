@@ -10,13 +10,38 @@ const client = new CiscoTPClient({
 	password: 'password'
 }, IP);
 
-test('Set credentials', t => {
-	t.is(client.credentials.username, 'username');
-	t.is(client.credentials.password, 'password');
+test('Get credentials', t => {
+	t.is(client.credentials.user, 'username');
+	t.is(client.credentials.pass, 'password');
 });
 
-test('Set address', t => {
+test('Get address', t => {
 	t.is(client.ip, '192.168.0.1');
+});
+
+test.serial('Get options', async t => {
+	t.plan(1);
+
+	// A basic request, where options
+	// will be stored from most recent request
+	BASE_NOCK
+		.get('/configuration.xml')
+		.reply(200, `<configuration></configuration>`);
+
+	await client.getConfiguration();
+	const expectedOptions = {
+		auth: {
+			user: 'username',
+			pass: 'password'
+		},
+		method: 'GET',
+		uri: 'http://192.168.0.1/configuration.xml',
+		headers: {
+			'Content-Type': 'text/xml'
+		}
+	};
+
+	t.deepEqual(client.options, expectedOptions);
 });
 
 test('Build params', t => {
@@ -31,8 +56,8 @@ test('Build params', t => {
 	});
 	const expectedOptions = {
 		auth: {
-			username: 'username',
-			password: 'password'
+			user: 'username',
+			pass: 'password'
 		},
 		qs: {
 			test: 'Steven'
