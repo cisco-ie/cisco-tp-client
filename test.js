@@ -173,6 +173,20 @@ test('Set httpFeedback', async t => {
 	t.is(feedbackResp, '<Success></Success>');
 });
 
+test('Throw error for no payloads', t => {
+	const putXmlError = t.throws(() => {
+		client.putXml();
+	}, Error);
+
+	t.is(putXmlError.message, 'Payload parameter not defined');
+
+	const formPutXmlError = t.throws(() => {
+		client.putXmlWithForm();
+	}, Error);
+
+	t.is(formPutXmlError.message, 'Payload parameter not defined');
+});
+
 test('Throws error for setHttpFeedback', t => {
 	const error = t.throws(() => {
 		client.setHttpFeedback({
