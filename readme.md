@@ -1,8 +1,10 @@
 # cisco-tp-client [![Build Status](https://travis-ci.org/brh55/cisco-tp-client.svg?branch=master)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://coveralls.io/repos/github/brh55/cisco-tp-client/badge.svg?branch=master)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master)
 
-> A Node.js API client for Cisco Telepresence endpoints
+> A Node.js API client for Cisco TelePresence endpoints/codecs
 
-`cisco-tp-client` is a promise-based Node.js client library to interact with Cisco Telepresence endpoints *(DX`#`, SX`#`, EX`#`)* HTTP supported APIs. In addition to the standard available APIs, it handles authentication, and HTTP feedback expressions. It is currently built on top of [`request`](https://github.com/request/request) and [`request-promise-native`](https://github.com/request/request-promise-native).
+`cisco-tp-client` is a promise-based Node.js client library to interact with Cisco TelePresence endpoints/codecs *(DX Series, SX Series, EX Series)* HTTP supported APIs. In addition to the standard available APIs, it handles authentication, and HTTP feedback expressions. It is currently built on top of [`request`](https://github.com/request/request) and [`request-promise-native`](https://github.com/request/request-promise-native).
+
+For more detailed information on API usage, visit the [Cisco Support page](http://www.cisco.com/c/en/us/support/index.html) for API reference guides for each series.
 
 ## Install
 
@@ -13,16 +15,16 @@ $ npm install --save cisco-tp-client
 ## Usage
 
 ```js
-const TPClient = require('cisco-tp-client');
+const ciscoTPClient = require('cisco-tp-client');
 
 const sx20 = ciscoTpClient({
-	username: 'brandon',
-	password: 'password123'
+  username: 'brandon',
+  password: 'password123'
 }, '192.168.0.2');
 
 sx20
-	.getXml('/Status/Audio')
-	.then(response => console.log); // sx20 Audio Status XML
+  .getXml('/Status/Audio')
+  .then(response => console.log); // sx20 Audio Status XML
 ```
 
 ## API
@@ -88,21 +90,25 @@ Gets the complete Status XML document.
 
 Gets the complete Valuespace XML document.
 
-### getXml(`xPath`)
+### getXml(`XPath`)
 
-Gets a subset of a XML document per specified `xPath`.
+Gets a subset of a XML document per specified `XPath`.
 
-#### xPath
+#### XPath
 Required<br>
 Type: `String`
 
-The xPath of the XML Document. *(IE: `/Status/Camera`)*.
+The XPath of the XML Document. *(IE: `/Status/Camera`)*.
 
-### putXml(`xmlBody`)
+### putXml(`xmlDocument`)
 
 Sets a particular setting by putting an XML document.
 
-#### xmlBody
+### putXmlWithForm(`xmlDocument`)
+
+Similar to `.putXml`, but instead uses `www-url-form-encoded`. Generally used for better performance when settings are non-alphanumeric or small in nature.
+
+#### xmlDocument
 Required<br>
 Type: `String` (XML)
 
@@ -117,44 +123,47 @@ An XML document to be put.
 </Configuration>
 ```
 
-#### putXmlWithForm(xmlBody)
+#### setHttpFeedback(`settings`)
 
-Similar to `.putXml`, but instead uses `www-url-form-encoded`. Generally used for better performance when settings are non-alphanumeric or small in nature.
+Sets an HTTP Feedback expression. These are feedback on events from the codec, which are posted to a specified `serverUrl` (AKA: webhook url) to monitor changes to a particular XPath
 
-#### setHttpFeedback(settings)
+> **⚠️ Note**
+>
+> Do not register for `/Status` as this will lead to "unpreditable behavior and sluggish behavior."
 
-Sets an HTTP Feedback expression. These are feedback on events from the codec, which are posted to a specified `serverUrl` (AKA: webhook url). 
-
-> **⚠️:** Do not register for `/Status` as this will lead to unpreditable behavior.
-
-IE:
+##### Example: Setting Multiple Feedback Expressions
 ```
 client
-	.setHttpFeedback({
-		feedbackSlot: 1,
-		serverUrl: 'http://webhookUrl.com/test',
-		expressions: [
-			'/Event/CallDisconnect',
-			'/Event/Reboot',
-			`/Status/Call`
-		]
-	})
-	.then(success => console.log);
+  .setHttpFeedback({
+     feedbackSlot: 1,
+     serverUrl: 'http://webhookUrl.com/test',
+     expressions: [
+       '/Event/CallDisconnect',
+       '/Event/Reboot',
+       '/Status/Call`
+     ]
+   })
+   .then(success => console.log);
 ```
 
 ##### settings.feedbackSlot
+Required<br>
 Type: `int`<br>
 The designated feedback slot to be used. 
 
-> **⚠️:** Avoid using Feedback Slot 3, when a Cisco TelePresence Management Suite (TMS) is used within the infrastructure.
+> **⚠️ Note**
+> 
+> Avoid using Feedback Slot 3, when a Cisco TelePresence Management Suite (TMS) is used within the infrastructure.
 
 ##### settings.serverUrl
+Required<br>
 Type: `string`<br>
 The url where the Codec will post the feedback to.
 
-###### settings.expressions
-Type: `Array`
-
+##### settings.expressions
+Required<br>
+Type: `Array`<br>
+Constraints: Cannot be greater than 15
 A set of feedback expressions, which monitor a particular XPath.
 
 IE: `/Status/Call`, `/Status/Reboot`, etc
