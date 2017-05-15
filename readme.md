@@ -4,7 +4,7 @@
 
 `cisco-tp-client` is a promise-based Node.js client library to interact with Cisco TelePresence endpoints/codecs *(DX Series, SX Series, EX Series)* HTTP supported APIs. In addition to the standard available APIs, it handles authentication, and HTTP feedback expressions. It is currently built on top of [`request`](https://github.com/request/request) and [`request-promise-native`](https://github.com/request/request-promise-native).
 
-For more detailed information on API usage, visit the [Cisco Support page](http://www.cisco.com/c/en/us/support/index.html) for API reference guides for each series.
+For detailed information regarding genral API codec usage, visit the [Cisco Support page](http://www.cisco.com/c/en/us/support/index.html) for API reference guides for each series.
 
 ## Install
 
@@ -160,7 +160,15 @@ client
 > 
 > Codecs are only limited to 15 expressions per a slot.
 
+## Authors
+- [Brandon Him - :octocat: brh55](https://github.com/brh55/)
+- [Anush Ganapathi Agraharam Sivasankar - :octocat: anushramsurat1](https://github.com/anushramsurat1)
+
+## Contribute
+Pull requests are welcomed and encouraged, please feel free to submit any issues on bugs, feature enhancements, etc. PRs should include associated unit-test and pass code style requirements. Therefore, for all PRs please run `$ npm test` or the CI will fail. 
+
+Do not hesistate to ask 🙃!
 
 ## License
 
-MIT © [Brandon Him](https://github.com/cisco-ie/cisco-tp-client)
+MIT © [Cisco Innovation Edge](https://github.com/cisco-ie/cisco-tp-client)
