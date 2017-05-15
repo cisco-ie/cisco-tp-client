@@ -69,6 +69,20 @@ class TPClient {
 		return this.sendRequest('POST', options);
 	}
 
+	putXmlWithForm(payload) {
+		const options = this.buildOptions('formputxml', {
+			method: 'POST',
+			qs: {
+				xmldoc: payload
+			},
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		});
+
+		return this.sendRequest('POST', options);
+	}
+
 	setHttpFeedback({serverUrl, expressions = [], feedbackSlot}) {
 		if (!serverUrl || !feedbackSlot) {
 			throw new Error('One or more required parameters are not defined');

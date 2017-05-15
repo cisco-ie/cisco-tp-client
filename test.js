@@ -108,6 +108,26 @@ test('Post /putxml', async t => {
 	t.is(xmlResponse, response);
 });
 
+test('Post /formputxml', async t => {
+	t.plan(1);
+
+	const response = '<?xml version="1.0"?><Configuration><Success/></Configuration>';
+
+	nock(`http://${IP}`, {
+		reqheaders: {
+			'content-type': 'application/x-www-form-urlencoded'
+		}})
+		.post('/formputxml')
+		.query({
+			xmldoc: '<Test></Test>'
+		})
+		.reply(200, response);
+
+	const xmlResponse = await client.putXmlWithForm('<Test></Test>');
+
+	t.is(xmlResponse, response);
+});
+
 test('Get /getxml', async t => {
 	t.plan(1);
 
