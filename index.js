@@ -69,16 +69,22 @@ class TPClient {
 		return this.sendRequest('POST', options);
 	}
 
-    setHttpFeedback({ serverUrl, expressions = [], feedbackSlot }) {
-        if (!serverUrl || !feedbackSlot) throw new Error('One or more required parameters are not defined');
-        if (expressions.length === 0) throw new Error('No feedback expressions are defined');
-        if (expressions.length > 15) throw new Error('Length of expressions cannot be greater than 15');
+	setHttpFeedback({serverUrl, expressions = [], feedbackSlot}) {
+		if (!serverUrl || !feedbackSlot) {
+			throw new Error('One or more required parameters are not defined');
+		}
+		if (expressions.length === 0) {
+			throw new Error('No feedback expressions are defined');
+		}
+		if (expressions.length > 15) {
+			throw new Error('Length of expressions cannot be greater than 15');
+		}
 
-        const expressionXML = expressions
-              .map((expression, index) => `<Expression item="${index + 1}">${expression}</Expression>`)
-              .toString();
+		const expressionXML = expressions
+			.map((expression, index) => `<Expression item="${index + 1}">${expression}</Expression>`)
+			.toString();
 
-        const feedbackXml = `
+		const feedbackXml = `
 <Command>
 <HttpFeedback>
 <Register command="True">
@@ -89,8 +95,8 @@ ${expressionXML}
 </HttpFeedback>
 </Command>`;
 
-       return this.putXml(feedbackXml);
-    }
+		return this.putXml(feedbackXml);
+	}
 
 	sendRequest(requestType, options) {
 		const requests = {

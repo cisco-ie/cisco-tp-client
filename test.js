@@ -124,11 +124,10 @@ test('Get /getxml', async t => {
 	t.is(xmlResponse, response);
 });
 
-
 test('Set httpFeedback', async t => {
-    t.plan(1);
+	t.plan(1);
 
-    const feedbackXML =`
+	const feedbackXML = `
 <Command>
 <HttpFeedback>
 <Register command="True">
@@ -139,51 +138,52 @@ test('Set httpFeedback', async t => {
 </HttpFeedback>
 </Command>`;
 
-    BASE_NOCK
-       .post('/putxml', feedbackXML)
-       .reply(200, '<Success></Success>');
+	BASE_NOCK
+		.post('/putxml', feedbackXML)
+		.reply(200, '<Success></Success>');
 
-    const feedbackResp = await client.setHttpFeedback({
-        feedbackSlot: 1,
-        serverUrl: 'http://serverurl.com/test',
-        expressions: [
-            '/Event/CallDisconnect'
-        ]
-    });
+	const feedbackResp = await client.setHttpFeedback({
+		feedbackSlot: 1,
+		serverUrl: 'http://serverurl.com/test',
+		expressions: [
+			'/Event/CallDisconnect'
+		]
+	});
 
-    t.is(feedbackResp, '<Success></Success>');
+	t.is(feedbackResp, '<Success></Success>');
 });
 
 test('Throws error for setHttpFeedback', t => {
-   const error = t.throws(() => {
-        client.setHttpFeedback({
-            feedbackSlot: 1,
-            expressions: [
-                '/Event/CallDisconnect'
-            ]
-        });
-    }, Error);
+	const error = t.throws(() => {
+		client.setHttpFeedback({
+			feedbackSlot: 1,
+			expressions: [
+				'/Event/CallDisconnect'
+			]
+		});
+	}, Error);
 
-    t.is(error.message, 'One or more required parameters are not defined');
+	t.is(error.message, 'One or more required parameters are not defined');
 
-    const error2 = t.throws(() => {
-        client.setHttpFeedback({
-            feedbackSlot: 2,
-            serverUrl: 'http://test/',
-            expressions: [
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-            ]
-        });
-    }, Error);
+	const error2 = t.throws(() => {
+		client.setHttpFeedback({
+			feedbackSlot: 2,
+			serverUrl: 'http://test/',
+			expressions: [
+				0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+			]
+		});
+	}, Error);
 
-    t.is(error2.message, 'Length of expressions cannot be greater than 15');
+	t.is(error2.message, 'Length of expressions cannot be greater than 15');
 
-    const error3 = t.throws(() => {
-        client.setHttpFeedback({
-            feedbackSlot: 2,
-            serverUrl: 'http://test/'
-        });
-    }, Error);
+	const error3 = t.throws(() => {
+		client.setHttpFeedback({
+			feedbackSlot: 2,
+			serverUrl: 'http://test/'
+		});
+	}, Error);
 
-    t.is(error3.message, 'No feedback expressions are defined');
+	t.is(error3.message, 'No feedback expressions are defined');
 });
+
