@@ -153,3 +153,37 @@ test('Set httpFeedback', async t => {
 
     t.is(feedbackResp, '<Success></Success>');
 });
+
+test('Throws error for setHttpFeedback', t => {
+   const error = t.throws(() => {
+        client.setHttpFeedback({
+            feedbackSlot: 1,
+            expressions: [
+                '/Event/CallDisconnect'
+            ]
+        });
+    }, Error);
+
+    t.is(error.message, 'One or more required parameters are not defined');
+
+    const error2 = t.throws(() => {
+        client.setHttpFeedback({
+            feedbackSlot: 2,
+            serverUrl: 'http://test/',
+            expressions: [
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+            ]
+        });
+    }, Error);
+
+    t.is(error2.message, 'Length of expressions cannot be greater than 15');
+
+    const error3 = t.throws(() => {
+        client.setHttpFeedback({
+            feedbackSlot: 2,
+            serverUrl: 'http://test/'
+        });
+    }, Error);
+
+    t.is(error3.message, 'No feedback expressions are defined');
+});
