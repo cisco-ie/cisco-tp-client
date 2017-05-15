@@ -1,7 +1,8 @@
 # cisco-tp-client [![Build Status](https://travis-ci.org/brh55/cisco-tp-client.svg?branch=master)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://coveralls.io/repos/github/brh55/cisco-tp-client/badge.svg?branch=master)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master)
 
-> A node.js API client for Cisco Telepresence-enabled endpoints
+> A Node.js API client for Cisco Telepresence endpoints
 
+`cisco-tp-client` is a promise-based Node.js client library to interact with Cisco Telepresence endpoints *(DX`#`, SX`#`, EX`#`)* HTTP supported APIs. In addition to the standard available APIs, it handles authentication, and HTTP feedback expressions. It is currently built on top of [`request`](https://github.com/request/request) and [`request-promise-native`](https://github.com/request/request-promise-native).
 
 ## Install
 
@@ -9,36 +10,154 @@
 $ npm install --save cisco-tp-client
 ```
 
-
 ## Usage
 
 ```js
-const ciscoTpClient = require('cisco-tp-client');
+const TPClient = require('cisco-tp-client');
 
-ciscoTpClient('unicorns');
-//=> 'unicorns & rainbows'
+const sx20 = ciscoTpClient({
+	username: 'brandon',
+	password: 'password123'
+}, '192.168.0.2');
+
+sx20
+	.getXml('/Status/Audio')
+	.then(response => console.log); // sx20 Audio Status XML
 ```
-
 
 ## API
 
-### ciscoTpClient(input, [options])
+### ciscoTpClient(credentials, ip)
 
-#### input
+#### credentials
 
+Required<br>
+Type: `object`
+
+##### credentials.username || credentials.user
+The username for the TP unit
+
+##### credentials.password || credentials.pass
+The password for the TP unit
+
+#### ip
+
+Required<br>
 Type: `string`
 
-Lorem ipsum.
+The IP address of the TP unit
 
-#### options
+## Client Properties
 
-##### foo
+### credentials
 
-Type: `boolean`<br>
-Default: `false`
+Type: `Object`<br>
 
-Lorem ipsum.
+#### credentials.user
+#### credentials.pass
 
+The credentials passed in and is used for the request
+
+### ip
+
+Type: `String`<br>
+
+The IP addressed passed into the client
+
+### options
+
+Type: `String`<br>
+
+The last set of request options the client executed with. Can be useful for debugging.
+
+## Client Methods
+
+### getConfiguration()
+
+Gets the complete Configuration XML document.
+
+### getCommands()
+
+Gets the complete Commands XML document.
+
+### getStatus()
+
+Gets the complete Status XML document.
+
+### getValuespace()
+
+Gets the complete Valuespace XML document.
+
+### getXml(`xPath`)
+
+Gets a subset of a XML document per specified `xPath`.
+
+#### xPath
+Required<br>
+Type: `String`
+
+The xPath of the XML Document. *(IE: `/Status/Camera`)*.
+
+### putXml(`xmlBody`)
+
+Sets a particular setting by putting an XML document.
+
+#### xmlBody
+Required<br>
+Type: `String` (XML)
+
+An XML document to be put.
+
+##### Example XML Document: Setting a System Name
+```
+<Configuration>
+	<SystemUnit>
+		<Name>newName</Name>
+	</SystemUnit>
+</Configuration>
+```
+
+#### putXmlWithForm(xmlBody)
+
+Similar to `.putXml`, but instead uses `www-url-form-encoded`. Generally used for better performance when settings are non-alphanumeric or small in nature.
+
+#### setHttpFeedback(settings)
+
+Sets an HTTP Feedback expression. These are feedback on events from the codec, which are posted to a specified `serverUrl` (AKA: webhook url). 
+
+> **⚠️:** Do not register for `/Status` as this will lead to unpreditable behavior.
+
+IE:
+```
+client
+	.setHttpFeedback({
+		feedbackSlot: 1,
+		serverUrl: 'http://webhookUrl.com/test',
+		expressions: [
+			'/Event/CallDisconnect',
+			'/Event/Reboot',
+			`/Status/Call`
+		]
+	})
+	.then(success => console.log);
+```
+
+##### settings.feedbackSlot
+Type: `int`<br>
+The designated feedback slot to be used. 
+
+> **⚠️:** Avoid using Feedback Slot 3, when a Cisco TelePresence Management Suite (TMS) is used within the infrastructure.
+
+##### settings.serverUrl
+Type: `string`<br>
+The url where the Codec will post the feedback to.
+
+###### settings.expressions
+Type: `Array`
+
+A set of feedback expressions, which monitor a particular XPath.
+
+IE: `/Status/Call`, `/Status/Reboot`, etc
 
 ## License
 
