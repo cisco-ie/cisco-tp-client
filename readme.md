@@ -56,41 +56,41 @@ The IP address of the TP unit
 Type: `Object`<br>
 Props: `user` and `pass`
 
-The credentials passed in and is used for the request. 
+The credentials passed in, which are used for the request to authenticate with.
 
 ### ip
 
 Type: `String`<br>
 
-The IP addressed passed into the client
+The IP address where request are being made to.
 
 ### options
 
 Type: `String`<br>
 
-The last set of request options the client executed with. Can be useful for debugging.
+The last set of request options the client has executed with, this can be useful for debugging purposes.
 
 ## Client Methods
 
 ### getConfiguration()
 
-Gets the complete Configuration XML document.
+Get the complete Configuration XML document.
 
 ### getCommands()
 
-Gets the complete Commands XML document.
+Get the complete Commands XML document.
 
 ### getStatus()
 
-Gets the complete Status XML document.
+Get the complete Status XML document.
 
 ### getValuespace()
 
-Gets the complete Valuespace XML document.
+Get the complete Valuespace XML document.
 
 ### getXml(`XPath`)
 
-Gets a subset of a XML document per specified `XPath`.
+Get a subset of a XML document per specified `XPath`.
 
 #### XPath
 Required<br>
@@ -100,17 +100,17 @@ The XPath of the XML Document. *(IE: `/Status/Camera`)*.
 
 ### putXml(`xmlDocument`)
 
-Sets a particular setting by putting an XML document.
+Set a particular setting by putting an XML document.
 
 ### putXmlWithForm(`xmlDocument`)
 
-Similar to `.putXml`, but instead uses `www-url-form-encoded`. Generally used for better performance when settings are non-alphanumeric or small in nature.
+Similar to `.putXml()`, but instead uses a `www-url-form-encoded` as the content-type. This is generally used for better performance when the xmlDocs are non-alphanumeric or small in nature.
 
 #### xmlDocument
 Required<br>
 Type: `String` (XML)
 
-An XML document to be put.
+The XML document to be put.
 
 ##### Example XML Document: Setting a System Name
 ```
@@ -123,7 +123,7 @@ An XML document to be put.
 
 ### setHttpFeedback(`settings`)
 
-Sets an HTTP Feedback expression. These are feedback on events from the codec, which are posted to a specified `serverUrl` (AKA: webhook url) to monitor changes to a particular XPath
+Set a HTTP feedback notification to monitor a particular XPath. The notifications are posted to the specified `serverUrl` *(AKA: a webhook url)* that are set within the settings parameter.
 
 #### settings
 
@@ -164,9 +164,9 @@ client
 - [Anush Ganapathi Agraharam Sivasankar - :octocat: anushramsurat1](https://github.com/anushramsurat1)
 
 ## Contribute
-Pull requests are welcomed and encouraged, please feel free to submit any issues on bugs, feature enhancements, etc. PRs should include associated unit-test and pass code style requirements. Therefore, for all PRs please run `$ npm test` or the CI will fail. 
+Pull requests are welcomed and encouraged, please feel free to submit any issues on bugs, feature enhancements, etc. PRs should include associated unit-test and pass all code style requirements. Therefore, for all PRs should run `$ npm test` prior to submissions.
 
-Do not hesistate to ask 🙃!
+Please do not hesistate to reach out for help 🙃!
 
 ## License
 
