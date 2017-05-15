@@ -83,14 +83,13 @@ class TPClient {
 <HttpFeedback>
 <Register command="True">
 <FeedbackSlot>${feedbackSlot}</FeedbackSlot>
+<ServerUrl>${serverUrl}</ServerUrl>
 ${expressionXML}
 </Register>
 </HttpFeedback>
 </Command>`;
 
-console.log(feedbackXml);
-        
-        return this.putXml(feedbackXml);
+       return this.putXml(feedbackXml);
     }
 
 	sendRequest(requestType, options) {
