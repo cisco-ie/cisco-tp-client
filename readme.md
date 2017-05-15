@@ -1,11 +1,11 @@
-# cisco-tp-client  [![Build Status](https://img.shields.io/travis/cisco-ie/cisco-tp-client.svg?style=flat-square)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://img.shields.io/coveralls/brh55/cisco-tp-client/master.svg?style=flat-square)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square)](https://github.com/sindresorhus/xo)
+# cisco-tp-client   [![Build Status](https://img.shields.io/travis/cisco-ie/cisco-tp-client.svg?style=flat-square)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://img.shields.io/coveralls/brh55/cisco-tp-client/master.svg?style=flat-square)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square)](https://github.com/sindresorhus/xo)
 
 
 > A Node.js API client for Cisco TelePresence endpoints/codecs
 
 `cisco-tp-client` is a promise-based Node.js client library to interact with Cisco TelePresence endpoints/codecs *(DX Series, SX Series, EX Series)* HTTP supported APIs. In addition to the standard available APIs, it handles authentication, and HTTP feedback expressions. It is currently built on top of [`request`](https://github.com/request/request) and [`request-promise-native`](https://github.com/request/request-promise-native).
 
-For detailed information regarding genral API codec usage, visit the [Cisco Support page](http://www.cisco.com/c/en/us/support/index.html) for API reference guides for each series.
+For detailed information regarding general API codec usage, visit the [Cisco Support page](http://www.cisco.com/c/en/us/support/index.html) for API reference guides on each series.
 
 ## Install
 
