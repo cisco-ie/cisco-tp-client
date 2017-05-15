@@ -1,4 +1,5 @@
-# cisco-tp-client [![Build Status](https://travis-ci.org/brh55/cisco-tp-client.svg?branch=master)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://coveralls.io/repos/github/brh55/cisco-tp-client/badge.svg?branch=master)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master)
+# cisco-tp-client  [![Build Status](https://img.shields.io/travis/cisco-ie/cisco-tp-client.svg?style=flat-square)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://img.shields.io/coveralls/brh55/cisco-tp-client/master.svg?style=flat-square)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square)](https://github.com/sindresorhus/xo)
+
 
 > A Node.js API client for Cisco TelePresence endpoints/codecs
 
