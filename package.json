@@ -1,41 +1,44 @@
 {
-  "name": "cisco-tp-client",
-  "version": "0.0.0",
-  "description": "A node.js API client for Cisco Telepresence-enabled endpoints",
-  "license": "MIT",
-  "repository": "brh55/cisco-tp-client",
-  "author": {
-    "name": "Brandon Him",
-    "email": "brh55@drexel.edu",
-    "url": "github.com/cisco-ie/cisco-tp-client"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && nyc ava"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    ""
-  ],
-  "dependencies": {
-    "request": "^2.81.0",
-    "request-promise-native": "^1.0.4"
-  },
-  "devDependencies": {
-    "ava": "^0.17.0",
-    "coveralls": "^2.11.12",
-    "nock": "^9.0.13",
-    "nyc": "^10.0.0",
-    "xo": "^0.17.0"
-  },
-  "nyc": {
-    "reporter": [
-      "lcov",
-      "text"
-    ]
-  }
+	"name": "cisco-tp-client",
+	"version": "0.1.0",
+	"description": "A node.js API client for Cisco Telepresence-enabled endpoints",
+	"license": "MIT",
+	"repository": "cisco-ie/cisco-tp-client",
+	"author": {
+		"name": "Brandon Him",
+		"email": "brhim@cisco.com",
+		"url": "github.com/cisco-ie/cisco-tp-client"
+	},
+	"engines": {
+		"node": ">=4"
+	},
+	"scripts": {
+		"test": "xo && nyc ava"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"cisco",
+		"TelePresences",
+		"Collaboration",
+		"TP Codecs"
+	],
+	"dependencies": {
+		"request": "^2.81.0",
+		"request-promise-native": "^1.0.4"
+	},
+	"devDependencies": {
+		"ava": "^0.17.0",
+		"coveralls": "^2.11.12",
+		"nock": "^9.0.13",
+		"nyc": "^10.0.0",
+		"xo": "^0.17.0"
+	},
+	"nyc": {
+		"reporter": [
+			"lcov",
+			"text"
+		]
+	}
 }
