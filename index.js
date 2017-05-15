@@ -33,21 +33,25 @@ class TPClient {
 
 	getConfiguration() {
 		const options = this.buildOptions('configuration.xml');
+
 		return this.sendRequest('GET', options);
 	}
 
 	getCommands() {
 		const options = this.buildOptions('command.xml');
+
 		return this.sendRequest('GET', options);
 	}
 
 	getStatus() {
 		const options = this.buildOptions('status.xml');
+
 		return this.sendRequest('GET', options);
 	}
 
 	getValuespace() {
 		const options = this.buildOptions('valuespace.xml');
+
 		return this.sendRequest('GET', options);
 	}
 
@@ -58,18 +62,28 @@ class TPClient {
 		const options = this.buildOptions('getxml', {
 			qs
 		});
+
 		return this.sendRequest('GET', options);
 	}
 
 	putXml(payload) {
+		if (!payload) {
+			throw new Error('Payload parameter not defined');
+		}
+
 		const options = this.buildOptions('putxml', {
 			method: 'POST',
 			body: payload
 		});
+
 		return this.sendRequest('POST', options);
 	}
 
 	putXmlWithForm(payload) {
+		if (!payload) {
+			throw new Error('Payload parameter not defined');
+		}
+
 		const options = this.buildOptions('formputxml', {
 			method: 'POST',
 			qs: {
@@ -120,7 +134,6 @@ ${expressionXML}
 
 		return requests[requestType](options);
 	}
-
 }
 
 module.exports = TPClient;
