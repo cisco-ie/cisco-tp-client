@@ -198,18 +198,26 @@ test('Set httpFeedback', async t => {
 	t.is(feedbackResp, '<Success></Success>');
 });
 
-test('Throw error for no payloads', t => {
+test('Throw error for no xmlDocuments', t => {
 	const putXmlError = t.throws(() => {
 		client.putXml();
 	}, Error);
 
-	t.is(putXmlError.message, 'Payload parameter not defined');
+	t.is(putXmlError.message, 'xmlDocument parameter not defined');
 
 	const formPutXmlError = t.throws(() => {
 		client.putXmlWithForm();
 	}, Error);
 
-	t.is(formPutXmlError.message, 'Payload parameter not defined');
+	t.is(formPutXmlError.message, 'xmlDocument parameter not defined');
+});
+
+test('Throw error for no XPath', t => {
+	const pathError = t.throws(() => {
+		client.getXml();
+	}, Error);
+
+	t.is(pathError.message, 'XPath parameter is not defined');
 });
 
 test('Throws error for setHttpFeedback', t => {
@@ -244,5 +252,23 @@ test('Throws error for setHttpFeedback', t => {
 	}, Error);
 
 	t.is(error3.message, 'No feedback expressions are defined');
+
+	const error4 = t.throws(() => {
+		client.setHttpFeedback({
+			feedbackSlot: 5,
+			serverUrl: 'http://test/'
+		});
+	}, Error);
+
+	t.is(error4.message, 'feedbackSlot must be an integer between 1 - 4');
+
+	const error5 = t.throws(() => {
+		client.setHttpFeedback({
+			feedbackSlot: 0,
+			serverUrl: 'http://test/'
+		});
+	}, Error);
+
+	t.is(error5.message, 'feedbackSlot must be an integer between 1 - 4');
 });
 

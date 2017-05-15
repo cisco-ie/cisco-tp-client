@@ -64,9 +64,13 @@ class TPClient {
 		return this.sendRequest('GET');
 	}
 
-	getXml(locationPath) {
+	getXml(XPath) {
+		if (!XPath) {
+			throw new Error('XPath parameter is not defined');
+		}
+
 		const qs = {
-			location: locationPath
+			location: XPath
 		};
 		this._options = this.buildOptions('getxml', {
 			qs
@@ -75,28 +79,28 @@ class TPClient {
 		return this.sendRequest('GET');
 	}
 
-	putXml(payload) {
-		if (!payload) {
-			throw new Error('Payload parameter not defined');
+	putXml(xmlDocument) {
+		if (!xmlDocument) {
+			throw new Error('xmlDocument parameter not defined');
 		}
 
 		this._options = this.buildOptions('putxml', {
 			method: 'POST',
-			body: payload
+			body: xmlDocument
 		});
 
 		return this.sendRequest('POST');
 	}
 
-	putXmlWithForm(payload) {
-		if (!payload) {
-			throw new Error('Payload parameter not defined');
+	putXmlWithForm(xmlDocument) {
+		if (!xmlDocument) {
+			throw new Error('xmlDocument parameter not defined');
 		}
 
 		this._options = this.buildOptions('formputxml', {
 			method: 'POST',
 			qs: {
-				xmldoc: payload
+				xmldoc: xmlDocument
 			},
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
@@ -107,8 +111,11 @@ class TPClient {
 	}
 
 	setHttpFeedback({serverUrl, expressions = [], feedbackSlot}) {
-		if (!serverUrl || !feedbackSlot) {
+		if (!serverUrl || !typeof feedbackSlot === 'number') {
 			throw new Error('One or more required parameters are not defined');
+		}
+		if (feedbackSlot < 1 || feedbackSlot > 4) {
+			throw new Error('feedbackSlot must be an integer between 1 - 4');
 		}
 		if (expressions.length === 0) {
 			throw new Error('No feedback expressions are defined');
