@@ -143,7 +143,6 @@ Set a HTTP feedback notification to monitor a particular XPath. The notification
 > - Codecs are only limited to 15 expressions per a slot. 
 > - Do not register for `/Status` as this will lead to "unpreditable behavior and sluggish behavior."
 
-
 ##### Example: Setting Multiple Feedback Expressions
 ```
 client
@@ -158,6 +157,15 @@ client
    })
    .then(success => console.log);
 ```
+
+### unsetHttpFeedback(`feedbackSlot`)
+
+Unsets/unregister any HTTP feedback on a particular feedback slot.
+
+#### feedbackSlot
+Type: `int`
+
+A slot to unregister the feedback expressions.
 
 ## Authors
 - [Brandon Him - :octocat: brh55](https://github.com/brh55/)
