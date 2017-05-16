@@ -64,9 +64,9 @@ Type: `String`<br>
 
 The IP address where request are being made to.
 
-### options
+### lastOptions
 
-Type: `String`<br>
+Type: `Object`<br>
 
 The last set of request options the client has executed with, this can be useful for debugging purposes.
 
