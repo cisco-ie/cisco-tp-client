@@ -41,7 +41,7 @@ test.serial('Get options', async t => {
 		}
 	};
 
-	t.deepEqual(client.options, expectedOptions);
+	t.deepEqual(client.lastOptions, expectedOptions);
 });
 
 test('Build params', t => {

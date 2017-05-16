@@ -20,7 +20,7 @@ class TPClient {
 		return this._ip;
 	}
 
-	get options() {
+	get lastOptions() {
 		return this._options;
 	}
 
