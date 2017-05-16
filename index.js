@@ -128,7 +128,7 @@ class TPClient {
 			.map((expression, index) => `<Expression item="${index + 1}">${expression}</Expression>`)
 			.toString();
 
-		const feedbackXml = `
+		const registerXml = `
 <Command>
 <HttpFeedback>
 <Register command="True">
@@ -139,7 +139,27 @@ ${expressionXML}
 </HttpFeedback>
 </Command>`;
 
-		return this.putXml(feedbackXml);
+		return this.putXml(registerXml);
+	}
+
+	unsetHttpFeedback(feedbackSlot) {
+		const invalidSlot = feedbackSlot < 1 || feedbackSlot > 4;
+
+		if (invalidSlot) {
+			throw new Error('Not a valid feedback slot');
+		}
+
+		const unregisterXml = `
+<Command>
+<HttpFeedback>
+<Deregister command="True">
+<FeedbackSlot>${feedbackSlot}</FeedbackSlot>
+</Deregister>
+</HttpFeedback>
+</Command>
+`;
+
+		return this.putXml(unregisterXml);
 	}
 
 	sendRequest(requestType) {

@@ -198,6 +198,27 @@ test('Set httpFeedback', async t => {
 	t.is(feedbackResp, '<Success></Success>');
 });
 
+test('Unset httpFeedback', async t => {
+	t.plan(1);
+
+	const unregisterXML = `
+<Command>
+<HttpFeedback>
+<Deregister command="True">
+<FeedbackSlot>1</FeedbackSlot>
+</Deregister>
+</HttpFeedback>
+</Command>`;
+
+	BASE_NOCK
+		.post('/putxml', unregisterXML)
+		.reply(200, '<Success></Success>');
+
+	const feedbackResp = await client.unsetHttpFeedback(1);
+
+	t.is(feedbackResp, '<Success></Success>');
+});
+
 test('Throw error for no xmlDocuments', t => {
 	const putXmlError = t.throws(() => {
 		client.putXml();
@@ -272,3 +293,10 @@ test('Throws error for setHttpFeedback', t => {
 	t.is(error5.message, 'feedbackSlot must be an integer between 1 - 4');
 });
 
+test('Throws error for unsetHttpFeedback with invalid slot', t => {
+	const error = t.throws(() => {
+		client.unsetHttpFeedback(0);
+	}, Error);
+
+	t.is(error.message, 'Not a valid feedback slot');
+});
