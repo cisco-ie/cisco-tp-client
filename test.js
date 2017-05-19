@@ -179,6 +179,7 @@ test('Set httpFeedback', async t => {
 <FeedbackSlot>1</FeedbackSlot>
 <ServerUrl>http://serverurl.com/test</ServerUrl>
 <Expression item="1">/Event/CallDisconnect</Expression>
+<Expression item="2">/Status/Call</Expression>
 </Register>
 </HttpFeedback>
 </Command>`;
@@ -191,7 +192,8 @@ test('Set httpFeedback', async t => {
 		feedbackSlot: 1,
 		serverUrl: 'http://serverurl.com/test',
 		expressions: [
-			'/Event/CallDisconnect'
+			'/Event/CallDisconnect',
+			'/Status/Call'
 		]
 	});
 

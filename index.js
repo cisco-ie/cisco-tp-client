@@ -126,7 +126,8 @@ class TPClient {
 
 		const expressionXML = expressions
 			.map((expression, index) => `<Expression item="${index + 1}">${expression}</Expression>`)
-			.toString();
+			.toString()
+			.replace(/,/g, '');
 
 		const registerXml = `
 <Command>
