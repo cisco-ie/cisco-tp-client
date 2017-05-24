@@ -70,7 +70,7 @@ class TPClient {
 		}
 
 		const qs = {
-			location: XPath
+			location: this.prependSlash(XPath)
 		};
 		this._options = this.buildOptions('getxml', {
 			qs
@@ -125,6 +125,7 @@ class TPClient {
 		}
 
 		const expressionXML = expressions
+			.map(this.prependSlash)
 			.map((expression, index) => `<Expression item="${index + 1}">${expression}</Expression>`)
 			.toString()
 			.replace(/,/g, '');
@@ -170,6 +171,13 @@ ${expressionXML}
 		};
 
 		return requests[requestType](this._options);
+	}
+
+	prependSlash(input) {
+		const firstChar = input.charAt(0);
+		return firstChar === '/' ?
+			input :
+			'/' + input;
 	}
 }
 
