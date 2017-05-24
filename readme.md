@@ -125,6 +125,8 @@ The XML document to be put.
 
 Set a HTTP feedback notification to monitor a particular XPath. The notifications are posted to the specified `serverUrl` *(AKA: a webhook url)* that are set within the settings parameter.
 
+`Format Parameter supported for CE < Version 9.0`
+
 #### settings
 
 | Properties   | Type     | Description                                                       | Example                              |
