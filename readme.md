@@ -129,12 +129,12 @@ Set a HTTP feedback notification to monitor a particular XPath. The notification
 `Format Parameter supported for CE < Version 9.0`
 
 #### settings
-
-| Properties   | Type     | Description                                                       | Example                              |
-|--------------|----------|-------------------------------------------------------------------|--------------------------------------|
-| feedbackSlot | `int` [1..4] | The designated feedback slot to be used.                          | `1`                                  |
-| serverUrl    | `string` | The url where the Codec will post the feedback to.                | `http://yourwebhook.com/feedback`    |
-| expressions  | `array`  | A set of feedback expressions, which monitor a particular XPath.  | `['/Status/Call', '/Status/Reboot']` |
+| Properties   | Type                      | Description                                                      | Example                              |
+|--------------|---------------------------|------------------------------------------------------------------|--------------------------------------|
+| feedbackSlot | `int` [1..4]              | The designated feedback slot to be used.                         | `1`                                  |
+| serverUrl    | `string`                  | The url where the Codec will post the feedback to.               | `http://yourwebhook.com/feedback`    |
+| expressions  | `array`                   | A set of feedback expressions, which monitor a particular XPath. | `['/Status/Call', '/Status/Reboot']` |
+| format       | `string` <br> ["xml" OR "json"] | The return format of the HTTP feedback payload                   | `'json'`                             |
 
 > **⚠️ Note - feedbackSlot**
 > 
