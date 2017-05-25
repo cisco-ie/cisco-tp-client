@@ -154,7 +154,7 @@ test('Post /formputxml', async t => {
 });
 
 test('Get /getxml', async t => {
-	t.plan(1);
+	t.plan(2);
 
 	const response = '<Status><Audio></Audio></Status>';
 	BASE_NOCK
@@ -167,6 +167,18 @@ test('Get /getxml', async t => {
 	const xmlResponse = await client.getXml('/Status/Audio');
 
 	t.is(xmlResponse, response);
+
+	const slashResponse = '<Status><Audio></Audio></Status>';
+	BASE_NOCK
+		.get('/getxml')
+		.query({
+			location: '/Status/Audio'
+		})
+		.reply(200, slashResponse);
+
+	const xmlResponse2 = await client.getXml('Status/Audio');
+
+	t.is(xmlResponse2, slashResponse);
 });
 
 test('Set httpFeedback', async t => {
@@ -193,7 +205,8 @@ test('Set httpFeedback', async t => {
 		serverUrl: 'http://serverurl.com/test',
 		expressions: [
 			'/Event/CallDisconnect',
-			'/Status/Call'
+			// Removing slash to test
+			'Status/Call'
 		]
 	});
 

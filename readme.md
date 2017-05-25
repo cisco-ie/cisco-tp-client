@@ -97,6 +97,7 @@ Required<br>
 Type: `String`
 
 The XPath of the XML Document. *(IE: `/Status/Camera`)*.
+`NOTE: Logic for prepending slash added - if the XPath does not already contain a slash, it is prepended to the XPath. `
 
 ### putXml(`xmlDocument`)
 
