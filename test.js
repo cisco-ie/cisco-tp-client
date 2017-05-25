@@ -189,6 +189,7 @@ test('Set httpFeedback', async t => {
 <HttpFeedback>
 <Register command="True">
 <FeedbackSlot>1</FeedbackSlot>
+<Format>json</Format>
 <ServerUrl>http://serverurl.com/test</ServerUrl>
 <Expression item="1">/Event/CallDisconnect</Expression>
 <Expression item="2">/Status/Call</Expression>
@@ -201,6 +202,7 @@ test('Set httpFeedback', async t => {
 		.reply(200, '<Success></Success>');
 
 	const feedbackResp = await client.setHttpFeedback({
+		format: 'json',
 		feedbackSlot: 1,
 		serverUrl: 'http://serverurl.com/test',
 		expressions: [
@@ -306,6 +308,16 @@ test('Throws error for setHttpFeedback', t => {
 	}, Error);
 
 	t.is(error5.message, 'feedbackSlot must be an integer between 1 - 4');
+
+	const error6 = t.throws(() => {
+		client.setHttpFeedback({
+			feedbackSlot: 1,
+			serverUrl: 'http://test/',
+			format: 'HSHHS'
+		});
+	}, Error);
+
+	t.is(error6.message, 'Format must be JSON or XML');
 });
 
 test('Throws error for unsetHttpFeedback with invalid slot', t => {

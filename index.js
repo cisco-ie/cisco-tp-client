@@ -110,12 +110,15 @@ class TPClient {
 		return this.sendRequest('POST');
 	}
 
-	setHttpFeedback({serverUrl, expressions = [], feedbackSlot}) {
+	setHttpFeedback({serverUrl, expressions = [], feedbackSlot, format = 'xml'}) {
 		if (!serverUrl || !typeof feedbackSlot === 'number') {
 			throw new Error('One or more required parameters are not defined');
 		}
 		if (feedbackSlot < 1 || feedbackSlot > 4) {
 			throw new Error('feedbackSlot must be an integer between 1 - 4');
+		}
+		if (format.toLowerCase() !== 'json' && format.toLowerCase() !== 'xml') {
+			throw new Error('Format must be JSON or XML');
 		}
 		if (expressions.length === 0) {
 			throw new Error('No feedback expressions are defined');
@@ -135,6 +138,7 @@ class TPClient {
 <HttpFeedback>
 <Register command="True">
 <FeedbackSlot>${feedbackSlot}</FeedbackSlot>
+<Format>${format}</Format>
 <ServerUrl>${serverUrl}</ServerUrl>
 ${expressionXML}
 </Register>
