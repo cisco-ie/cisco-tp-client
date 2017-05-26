@@ -175,6 +175,10 @@ A slot to unregister the feedback expressions.
 - [Brandon Him - :octocat: brh55](https://github.com/brh55/)
 - [Anush Ganapathi Agraharam Sivasankar - :octocat: anushramsurat1](https://github.com/anushramsurat1)
 
+## Related Modules
+- [tp-bulk-feedback](https://github.com/cisco-ie/tp-bulk-feedback) - A plugin for cisco-tp-client to set HTTP Feedback expressions on a list of TelePresence units with CLI support and local file.
+- [tp-json-formatter](https://github.com/cisco-ie/tp-json-formatter) - A module that formats HTTP Feedback JSON responses from Cisco TelePresence units in a simpler, flatter JSON format.
+
 ## Contribute
 Pull requests are welcomed and encouraged, please feel free to submit any issues on bugs, feature enhancements, etc. PRs should include associated unit-test and pass all code style requirements. Therefore, for all PRs should run `$ npm test` prior to submissions.
 
