@@ -171,6 +171,7 @@ Type: `int`
 A slot to unregister the feedback expressions.
 
 ## Authors
+- [Rekha Rawat - :octocat: rekharawat](https://github.com/rekharawat/)
 - [Brandon Him - :octocat: brh55](https://github.com/brh55/)
 - [Anush Ganapathi Agraharam Sivasankar - :octocat: anushramsurat1](https://github.com/anushramsurat1)
 
