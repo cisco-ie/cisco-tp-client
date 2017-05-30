@@ -1,4 +1,4 @@
-# cisco-tp-client   [![Build Status](https://img.shields.io/travis/cisco-ie/cisco-tp-client.svg?style=flat-square)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://img.shields.io/coveralls/brh55/cisco-tp-client/master.svg?style=flat-square)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square)](https://github.com/sindresorhus/xo)
+# cisco-tp-client   [![Build Status](https://img.shields.io/travis/cisco-ie/cisco-tp-client.svg?style=flat-square)](https://travis-ci.org/brh55/cisco-tp-client) [![Coverage Status](https://img.shields.io/coveralls/brh55/cisco-tp-client/master.svg?style=flat-square)](https://coveralls.io/github/brh55/cisco-tp-client?branch=master) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square)](https://github.com/sindresorhus/xo) [![Stellaris Module](https://img.shields.io/badge/Stellaris-Module-0092ff.svg?style=flat-square)](https://github.com/stellaris-ie/)
 
 
 > A Node.js API client for Cisco TelePresence endpoints/codecs
@@ -175,7 +175,9 @@ A slot to unregister the feedback expressions.
 - [Brandon Him - :octocat: brh55](https://github.com/brh55/)
 - [Anush Ganapathi Agraharam Sivasankar - :octocat: anushramsurat1](https://github.com/anushramsurat1)
 
-## Related Modules
+## Related
+This module is one out of the many modules available in the :sparkles: Stellaris Ecosystem:
+
 - [tp-bulk-feedback](https://github.com/cisco-ie/tp-bulk-feedback) - A plugin for cisco-tp-client to set HTTP Feedback expressions on a list of TelePresence units with CLI support and local file.
 - [tp-json-formatter](https://github.com/cisco-ie/tp-json-formatter) - A module that formats HTTP Feedback JSON responses from Cisco TelePresence units in a simpler, flatter JSON format.
 
