@@ -10,7 +10,7 @@
 		"url": "github.com/cisco-ie/cisco-tp-client"
 	},
 	"engines": {
-		"node": ">=4"
+		"node": ">=7"
 	},
 	"scripts": {
 		"test": "xo && nyc ava"
@@ -22,7 +22,9 @@
 		"cisco",
 		"TelePresences",
 		"Collaboration",
-		"TP Codecs"
+		"TP Codecs",
+    "cisco endpoints",
+    "webex endpoints"
 	],
 	"dependencies": {
 		"request": "^2.81.0",
