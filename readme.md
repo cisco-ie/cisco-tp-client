@@ -175,10 +175,13 @@ A slot to unregister the feedback expressions.
 - [Anush Ganapathi Agraharam Sivasankar - :octocat: anushramsurat1](https://github.com/anushramsurat1)
 
 ## Related
-This module is one out of the many modules available in the :sparkles: Stellaris Ecosystem:
+If you found this client useful, don't forget to star this repository and check other related open-source Cisco modules by the Innovation Edge team:
 
-- [tp-bulk-feedback](https://github.com/cisco-ie/tp-bulk-feedback) - A plugin for cisco-tp-client to set HTTP Feedback expressions on a list of TelePresence units with CLI support and local file.
-- [tp-json-formatter](https://github.com/cisco-ie/tp-json-formatter) - A module that formats HTTP Feedback JSON responses from Cisco TelePresence units in a simpler, flatter JSON format.
+- [webex-api-client](https://github.com/cisco-ie/webex-api-client) - A node module to simplify interacting with Cisco WebEx XML-based APIs from the browser or server
+- [rrule-to-webex](https://github.com/cisco-ie/rrule-to-webex) - Converts a RRULE (iCalendar RFC-5545) to Cisco's WebEx recurrence repeat XML tree.
+- [webex-time-zones](https://github.com/cisco-ie/webex-time-zones) - 🌐 An enumerated list of Cisco WebEx supported time zones 
+- [webex-date](https://github.com/cisco-ie/webex-date) - 🕰 Convert a JavaScript date type, RFC 2822, ISO-8601 to the WebEx XML API supported format.
+- [webex-enum-types](https://github.com/cisco-ie/webex-enum-types) - 🍭 A JSON mapping of enumerated types for Cisco's WebEx XML API
 
 ## Contribute
 Pull requests are welcomed and encouraged, please feel free to submit any issues on bugs, feature enhancements, etc. PRs should include associated unit-test and pass all code style requirements. Therefore, for all PRs should run `$ npm test` prior to submissions.
