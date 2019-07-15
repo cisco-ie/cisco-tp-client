@@ -17,7 +17,7 @@ $ npm install --save cisco-tp-client
 ```js
 const ciscoTPClient = require('cisco-tp-client');
 
-const sx20 = ciscoTpClient({
+const sx20 = new ciscoTPClient({
   username: 'brandon',
   password: 'password123'
 }, '192.168.0.2');
